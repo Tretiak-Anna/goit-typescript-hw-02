@@ -2,10 +2,11 @@ import { Field, Form, Formik } from 'formik';
 import toast, { Toaster } from 'react-hot-toast';
 import { IoSearchOutline } from 'react-icons/io5';
 import css from './SearchBar.module.css';
+import { Search } from './SearchBar.types';
 
 const notify = () => toast('You forgot to describe the image');
 
-export default function SearchBar({ onSearch }) {
+export default function SearchBar({ onSearch }: Search) {
   return (
     <header className={css.header}>
       <Formik

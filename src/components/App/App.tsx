@@ -1,4 +1,3 @@
-import css from './App.module.css';
 import { useEffect, useState } from 'react';
 import { getImages } from '../../images-api';
 import ImageGallery from '../ImageGallery/ImageGallery';
@@ -7,16 +6,17 @@ import Loader from '../Loader/Loader';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
 import LoadMoreBtn from '../LoadMoreBtn/LoadMoreBtn';
 import ImageModal from '../ImageModal/ImageModal';
+import { Image } from '../../types';
 
 export default function App() {
-  const [images, setImages] = useState([]);
+  const [images, setImages] = useState<Image[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
-  const [page, setPage] = useState(1);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [totalPage, setTotalPage] = useState(false);
+  const [page, setPage] = useState<number>(0);
+  const [searchQuery, setSearchQuery] = useState<string>('');
+  const [totalPage, setTotalPage] = useState<number>(0);
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [selectedImage, setSelectedImage] = useState('');
+  const [selectedImage, setSelectedImage] = useState<string>('');
 
   useEffect(() => {
     if (searchQuery.trim() === '') {
@@ -28,7 +28,7 @@ export default function App() {
         setIsLoading(true);
         setIsError(false);
         const data = await getImages(searchQuery, page);
-        setTotalPage(page < Math.ceil(data.total / 12));
+        setTotalPage(Math.ceil(data.total / 12));
         setImages(prevState => [...prevState, ...data.results]);
       } catch (error) {
         setIsError(true);
@@ -41,7 +41,7 @@ export default function App() {
     fetchImages();
   }, [page, searchQuery]);
 
-  const handlSearch = async image => {
+  const handlSearch = async (image: string) => {
     setSearchQuery(image);
     setPage(1);
     setImages([]);
@@ -51,7 +51,7 @@ export default function App() {
     setPage(page + 1);
   };
 
-  const openModal = imageUrl => {
+  const openModal = (imageUrl: string) => {
     setSelectedImage(imageUrl);
     setModalIsOpen(true);
   };
@@ -62,7 +62,7 @@ export default function App() {
   };
 
   return (
-    <div className={css.container}>
+    <div>
       <SearchBar onSearch={handlSearch} />
       {isError && <ErrorMessage />}
       {images.length > 0 && (
