@@ -1,0 +1,21 @@
+.btnLoadMore {
+  border-radius: 8px;
+  padding: 4px 16px;
+  width: 125px;
+  height: 32px;
+  background-color: #e4f312;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5;
+  letter-spacing: 0.04em;
+  color: #8708ee;
+  border: none;
+  display: block;
+  margin: 32px auto;
+  text-align: center;
+}
+.btnLoadMore:hover,
+.btnLoadMore:focus {
+  color: rgb(247, 231, 6);
+  background-color: rgb(69, 6, 241);
+}
